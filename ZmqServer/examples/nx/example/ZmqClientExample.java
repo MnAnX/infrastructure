@@ -1,9 +1,9 @@
-package nx.server.zmq;
+package nx.example;
 
 import nx.server.zmq.ZmqClient;
 import nx.server.zmq.ClientRequest;
 
-public class ZmqClientTest
+public class ZmqClientExample
 {
 	public static void main(String[] args)
 	{

@@ -1,8 +1,9 @@
-package nx.server.bucketing;
+package nx.example;
 
+import nx.server.bucketing.BucketingClientRequest;
 import nx.server.zmq.ZmqClient;
 
-public class BucketingServerClientTest
+public class BucketingServerClientExample
 {
 	public static void main(String[] args)
 	{

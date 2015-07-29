@@ -1,27 +1,27 @@
-package nx.server.zmq;
+package nx.example;
 
+import nx.server.bucketing.BucketingServer;
 import nx.server.zmq.IHandler;
-import nx.server.zmq.ZmqServer;
 
-public class ZmqServerTest
+public class BucketingServerExample
 {
 	public static void main(String[] args) throws Exception
 	{
 		int client_port = 15000;
 		int worker_port = 15001;
-		ZmqServer server = new ZmqServer(client_port, worker_port);
+		BucketingServer server = new BucketingServer(client_port, worker_port);
 
-		IHandler handler1 = new ExampleMsgHandler1();
-		IHandler handler2 = new ExampleMsgHandler2();
+		IHandler handler1 = new ExampleBucketHandler1();
+		IHandler handler2 = new ExampleBucketHandler2();
 
-		server.addHandler(handler1, 2);	// handler1 serves for service1. scale for 2 sessions
-		server.addHandler(handler2, 3);	// hanlder2 serves for service2. scale for 3 sessions
+		server.addHandler(handler1, 2);	// handler1 serves for service1. scale for 2 buckets
+		server.addHandler(handler2, 3);	// hanlder2 serves for service2. scale for 3 buckets
 
 		server.start();
 	}
 }
 
-class ExampleMsgHandler1 implements IHandler
+class ExampleBucketHandler1 implements IHandler
 {
 	@Override
 	public String getServiceName()
@@ -36,7 +36,7 @@ class ExampleMsgHandler1 implements IHandler
 	}
 }
 
-class ExampleMsgHandler2 implements IHandler
+class ExampleBucketHandler2 implements IHandler
 {
 	@Override
 	public String getServiceName()
