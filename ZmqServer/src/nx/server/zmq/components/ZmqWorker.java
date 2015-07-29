@@ -23,12 +23,17 @@ public class ZmqWorker implements IZmqWorker
 
 	public ZmqWorker(int workerResponsePort, IHandler handler, int index)
 	{
+		this("localhost", workerResponsePort, handler, index);
+	}
+	
+	public ZmqWorker(String host, int workerResponsePort, IHandler handler, int index)
+	{
 		this.handler = handler;
 		this.service = handler.getServiceName();
 		isStop = false;
 		gson = new GsonBuilder().create();
 		workerId = new ZmqServerUtils().generateWorkerIdStr(handler.getServiceName(), index);
-		dealer = new ZmqDealer(workerId.getBytes(), "localhost", workerResponsePort, 100);
+		dealer = new ZmqDealer(workerId.getBytes(), host, workerResponsePort, 100);
 	}
 
 	public void stop()
