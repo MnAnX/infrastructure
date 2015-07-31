@@ -5,6 +5,7 @@ import org.zeromq.ZMQ.Poller;
 
 public class ZmqDealer
 {
+	private ZMQ.Context context;
 	private ZMQ.Socket dealer;
 	private Poller poller;
 	private Integer timeout;
@@ -34,7 +35,7 @@ public class ZmqDealer
 	protected void initZmq(byte[] id, String uri, Integer timeout)
 	{
 		this.timeout = timeout == null ? -1 : timeout;
-		ZMQ.Context context = ZMQ.context(1);
+		context = ZMQ.context(1);
 		dealer = context.socket(ZMQ.DEALER);
 		if (id != null)
 		{
@@ -95,5 +96,6 @@ public class ZmqDealer
 	public synchronized void close()
 	{
 		dealer.close();
+		context.term();
 	}
 }
