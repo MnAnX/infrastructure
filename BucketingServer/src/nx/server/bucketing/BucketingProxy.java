@@ -8,7 +8,7 @@ import com.google.gson.JsonSyntaxException;
 
 public class BucketingProxy extends ZmqProxy
 {
-	final static Logger logger = Logger.getLogger(BucketingProxy.class);
+	private final static Logger logger = Logger.getLogger(BucketingProxy.class);
 
 	public BucketingProxy(int clientRequestPort, int workerResponsePort, BucketingServiceRegistration serviceReg)
 	{

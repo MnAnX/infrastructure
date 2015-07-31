@@ -2,8 +2,8 @@ package nx.server.zmq;
 
 public class ClientResponse
 {
-	String data;
-	String error;
+	private String data;
+	private String error;
 	
 	public String getData()
 	{

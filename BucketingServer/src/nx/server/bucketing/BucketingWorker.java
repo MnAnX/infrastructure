@@ -11,9 +11,9 @@ import org.apache.log4j.Logger;
 
 public class BucketingWorker extends ZmqWorker
 {
-	final static Logger logger = Logger.getLogger(BucketingWorker.class);
+	private final static Logger logger = Logger.getLogger(BucketingWorker.class);
 	
-	Queue<String> taskQueue;
+	private Queue<String> taskQueue;
 	
 	public BucketingWorker(int workerResponsePort, IHandler handler, int index)
 	{

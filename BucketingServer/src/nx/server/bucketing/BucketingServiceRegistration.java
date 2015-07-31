@@ -10,10 +10,10 @@ import org.apache.log4j.Logger;
 
 public class BucketingServiceRegistration extends ZmqServiceRegistration
 {
-	final static Logger logger = Logger.getLogger(BucketingServiceRegistration.class);
+	private final static Logger logger = Logger.getLogger(BucketingServiceRegistration.class);
 	
-	HashMap<String, Integer> serviceBucketMap;	
-	ZmqServerUtils util;
+	private HashMap<String, Integer> serviceBucketMap;	
+	private ZmqServerUtils util;
 
 	public BucketingServiceRegistration()
 	{

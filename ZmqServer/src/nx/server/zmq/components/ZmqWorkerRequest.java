@@ -2,8 +2,8 @@ package nx.server.zmq.components;
 
 public class ZmqWorkerRequest
 {
-	byte[] clientId;
-	String data;
+	private byte[] clientId;
+	private String data;
 
 	public byte[] getClientId()
 	{

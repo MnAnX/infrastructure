@@ -10,16 +10,16 @@ import com.google.gson.JsonSyntaxException;
 
 public class ZmqWorker implements IZmqWorker
 {
-	final static Logger logger = Logger.getLogger(ZmqWorker.class);
+	private final static Logger logger = Logger.getLogger(ZmqWorker.class);
 
-	Gson gson;
+	private Gson gson;
 
-	String service;
-	IHandler handler;
-	boolean isStop;
+	private String service;
+	private IHandler handler;
+	private boolean isStop;
 
-	ZmqDealer dealer;
-	String workerId;
+	private ZmqDealer dealer;
+	private String workerId;
 
 	public ZmqWorker(int workerResponsePort, IHandler handler, int index)
 	{

@@ -15,19 +15,19 @@ import com.google.gson.JsonSyntaxException;
 
 public class ZmqProxy implements IProxy
 {
-	final static Logger logger = Logger.getLogger(ZmqProxy.class);
+	private final static Logger logger = Logger.getLogger(ZmqProxy.class);
 
-	final int MAX_GET_FREE_WORKER_RETRY_TIME = 5;
+	private final int MAX_GET_FREE_WORKER_RETRY_TIME = 5;
 	
-	Gson gson;
+	private Gson gson;
 	
-	boolean isStop;
+	private boolean isStop;
 
-	Socket clientSocket;
-	Socket workerSocket;
-	Poller poll;
+	private Socket clientSocket;
+	private Socket workerSocket;
+	private Poller poll;
 
-	IServiceRegistration serviceReg;
+	private IServiceRegistration serviceReg;
 
 	public ZmqProxy(int clientRequestPort, int workerResponsePort, IServiceRegistration serviceReg)
 	{

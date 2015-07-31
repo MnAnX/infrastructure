@@ -2,10 +2,10 @@ package nx.server.zmq.components;
 
 public class ZmqWorkerResponse
 {
-	String service;
-	byte[] clientId;
-	String data;
-	String error;
+	private String service;
+	private byte[] clientId;
+	private String data;
+	private String error;
 
 	public String getService()
 	{

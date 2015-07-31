@@ -7,8 +7,8 @@ import com.google.gson.GsonBuilder;
 
 public class ZmqClient
 {
-	Gson gson;
-	ZmqDealer client;
+	private Gson gson;
+	private ZmqDealer client;
 	
 	public ZmqClient(String clientId, String host, int port, Integer timeout)
 	{

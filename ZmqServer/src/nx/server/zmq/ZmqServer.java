@@ -15,13 +15,13 @@ import org.apache.log4j.Logger;
 
 public class ZmqServer
 {
-	final static Logger logger = Logger.getLogger(ZmqServer.class);
+	private final static Logger logger = Logger.getLogger(ZmqServer.class);
 
-	IProxy proxy;
-	int workerResponsePort;
-	List<IZmqWorker> workerList;
+	private IProxy proxy;
+	private int workerResponsePort;
+	private List<IZmqWorker> workerList;
 
-	ExecutorService executor;
+	private ExecutorService executor;
 
 	public ZmqServer(int clientRequestPort, int workerResponsePort)
 	{

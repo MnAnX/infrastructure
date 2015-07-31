@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 public class BucketingServer extends ZmqServer
 {
-	final static Logger logger = Logger.getLogger(BucketingServer.class);
+	private final static Logger logger = Logger.getLogger(BucketingServer.class);
 
 	public BucketingServer(int clientRequestPort, int workerResponsePort)
 	{

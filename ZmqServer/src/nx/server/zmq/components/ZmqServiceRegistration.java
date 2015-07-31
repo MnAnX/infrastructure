@@ -6,16 +6,13 @@ import org.apache.log4j.Logger;
 
 public class ZmqServiceRegistration implements IServiceRegistration
 {
-	final static Logger logger = Logger.getLogger(ZmqServiceRegistration.class);
-	
-	private final Object lock;	
-	int rrIndex;
-	// service registration
-	ConcurrentHashMap<String, ConcurrentHashMap<byte[], Boolean>> serviceReg;
+	private final static Logger logger = Logger.getLogger(ZmqServiceRegistration.class);
+
+	private final Object lock;
+	private ConcurrentHashMap<String, ConcurrentHashMap<byte[], Boolean>> serviceReg;
 
 	public ZmqServiceRegistration()
 	{
-		rrIndex = 0;
 		lock = new Object();
 		serviceReg = new ConcurrentHashMap<String, ConcurrentHashMap<byte[], Boolean>>();
 	}
@@ -77,7 +74,7 @@ public class ZmqServiceRegistration implements IServiceRegistration
 	protected ConcurrentHashMap<String, ConcurrentHashMap<byte[], Boolean>> getServiceReg()
 	{
 		return serviceReg;
-	}	
+	}
 
 	protected Object getLock()
 	{

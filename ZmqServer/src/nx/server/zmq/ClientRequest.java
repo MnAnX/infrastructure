@@ -2,8 +2,8 @@ package nx.server.zmq;
 
 public class ClientRequest
 {
-	String service;
-	String request;
+	private String service;
+	private String request;
 
 	public String getService()
 	{
