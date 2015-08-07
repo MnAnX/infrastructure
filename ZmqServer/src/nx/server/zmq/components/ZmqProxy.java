@@ -209,7 +209,7 @@ public class ZmqProxy implements IProxy
 
 		// send to client
 		ClientResponse response = new ClientResponse();
-		response.setData(msg.getData());
+		response.setResponse(msg.getData());
 		response.setError(msg.getError());
 		String responseStr = getGson().toJson(response);
 

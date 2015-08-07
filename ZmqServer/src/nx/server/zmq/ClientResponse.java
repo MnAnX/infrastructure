@@ -2,17 +2,17 @@ package nx.server.zmq;
 
 public class ClientResponse
 {
-	private String data;
+	private String response;
 	private String error;
 
-	public String getData()
+	public String getResponse()
 	{
-		return data;
+		return response;
 	}
 
-	public void setData(String data)
+	public void setResponse(String response)
 	{
-		this.data = data;
+		this.response = response;
 	}
 
 	public String getError()
