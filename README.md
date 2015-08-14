@@ -9,11 +9,8 @@ An example of how to create a simple server that runs on one host:
     public static void main(String[] args) throws Exception {
       	ZmqServer server = new ZmqServer(clientPort, workerPort);
     
-      	IHandler handler1 = new ExampleMsgHandler1();
-      	IHandler handler2 = new ExampleMsgHandler2();
-    
-      	server.addHandler(handler1, 2);	// handler1 serves as 'service1', scales by 2.
-      	server.addHandler(handler2, 3);	// hanlder2 serves as 'service2', scales by 3.
+      	server.addHandler(new ExampleMsgHandler1(), 2);	// handler1 serves as 'service1', scales by 2.
+      	server.addHandler(new ExampleMsgHandler2(), 3);	// hanlder2 serves as 'service2', scales by 3.
     
       	server.start();
       }
