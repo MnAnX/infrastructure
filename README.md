@@ -57,4 +57,4 @@ The way to create server and workers is same as the Zmq Server. Only that you ne
 ## Service Monitor
 Service monitor remotely monitors and controls services that register with it. It itself could be remotely controled by monitor client, to query on all the registered services, and send control commands to specified service. 
 
-A service can start a controller if it wants to be monitored.
+A service can start a controller if it wants to be monitored. Examples to be added later...
