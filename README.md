@@ -3,7 +3,7 @@ Infrastructure components I use to quickly build up a stable and scalable servic
 
 ## ZMQ Server
 It's a lightweight, easy to embed to anything, server that communicates through ZeroMQ. You can add handlers to serve different kinds of requests, and scale them by just giving one parameter. You can add workers easily either on the localhost or remote hosts.
-### Single server mode
+### Single server
 An example of how to create a simple server that runs on one host:
 
     public static void main(String[] args) throws Exception {
@@ -30,7 +30,7 @@ And to implement a handler, you focus only on business logic:
 
 As you add the handler to the server, it gets wrapped to a proper worker and interacts with the server.
 
-### Distributed mode
+### Distributed
 You can Also create workers on remote server and distribute the system:
 
 Firstly start the server (and a couple workers) on one host:
