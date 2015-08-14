@@ -33,7 +33,7 @@ As you add the handler to the server, it gets wrapped to a proper worker and int
 ### Distributed
 You can Also create workers on remote server and distribute the system:
 
-Firstly start the server (and a couple workers) on one host:
+Firstly start the server (and maybe a couple workers) on one host:
 
     public void startServer() throws Exception {
     	ZmqServer server = new ZmqServer(clientPort, workerPort);
