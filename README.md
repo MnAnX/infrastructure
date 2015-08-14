@@ -47,12 +47,6 @@ Then create more workers on remote hosts:
     	new Thread(worker).start();
     }
 
-    public void startMultipleWorkers(int numWorkers) {
-    	for (int i = 0; i < numWorkers; i++) {
-    		startWorker(i);
-    	}
-    }
-
 ## Bucketing Server
 Bucketing server is built on top of the Zmq Server. It buckets requests that have same key (specified in the request) to be processed by same thread. This could be used to process update requests to avoid race condition.
 
