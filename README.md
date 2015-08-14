@@ -7,18 +7,16 @@ It's a lightweight, easy to embed to anything, server that communicates through 
 An example of how to create a simple server that runs on one host:
 
     public static void main(String[] args) throws Exception {
-  		int client_port = 15000;
-  		int worker_port = 15001;
-  		ZmqServer server = new ZmqServer(client_port, worker_port);
-  
-  		IHandler handler1 = new ExampleMsgHandler1();
-  		IHandler handler2 = new ExampleMsgHandler2();
-  
-  		server.addHandler(handler1, 2);	// handler1 serves for service1. scale for 2 sessions
-  		server.addHandler(handler2, 3);	// hanlder2 serves for service2. scale for 3 sessions
-  
-  		server.start();
-  	}
+      	ZmqServer server = new ZmqServer(clientPort, workerPort);
+    
+      	IHandler handler1 = new ExampleMsgHandler1();
+      	IHandler handler2 = new ExampleMsgHandler2();
+    
+      	server.addHandler(handler1, 2);	// handler1 serves as 'service1', scales by 2.
+      	server.addHandler(handler2, 3);	// hanlder2 serves as 'service2', scales by 3.
+    
+      	server.start();
+      }
 
 And to implement a handler, you focus only on business logic:
 
@@ -28,8 +26,8 @@ And to implement a handler, you focus only on business logic:
     		return "service1";
     	}
     	@Override
-    	public String process(String data) throws Exception{
-    		return "handler1: " + data;
+    	public String process(String request) throws Exception{
+    		return "handler1: " + request;
     	}
     }
 
@@ -57,3 +55,13 @@ Then create more workers on remote hosts:
     		startWorker(i);
     	}
     }
+
+## Bucketing Server
+Bucketing server is built on top of the Zmq Server. It buckets requests that have same key (specified in the request) to be processed by same thread. This could be used to process update requests to avoid race condition.
+
+The way to create server and workers is same as the Zmq Server. Only that you need to specify bucket key in the request.
+
+## Service Monitor
+Service monitor remotely monitors and controls services that register with it. It itself could be remotely controled by monitor client, to query on all the registered services, and send control commands to specified service. 
+
+A service can start a controller if it wants to be monitored.
