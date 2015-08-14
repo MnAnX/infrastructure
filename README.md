@@ -2,7 +2,7 @@
 Infrastructure components I use to quickly build up a stable and scalable service.
 
 ## ZMQ Server
-It's a lightweight, easy to embed to anything, server that communicates through ZeroMQ. You can add handlers to serve different kinds of requests, and scale them by just giving one parameter. You can add workers easily either on the localhost or remote hosts.
+It's a lightweight, easy to embed to anything, server that communicates through ZeroMQ. You can add handlers to serve different kinds of requests, and scale them by just giving one parameter. You can add workers easily either on the localhost or remote hosts. Server dispatches workload evenly to the workers report to be free.
 ### Single server
 An example of how to create a simple server that runs on one host:
 
@@ -48,7 +48,9 @@ Then create more workers on remote hosts:
     }
 
 ## Bucketing Server
-Bucketing server is built on top of the Zmq Server. It buckets requests that have same key (specified in the request) to be processed by same thread. This could be used to process update requests to avoid race condition.
+Bucketing server is built on top of the Zmq Server. It buckets requests that have same key (specified in the request) to be processed by same worker. Each worker equips buffer, so will always be 'free' to the server. 
+
+Bucketing server could be used to process write/update requests to avoid race condition.
 
 The way to create server and workers is same as the Zmq Server. Only that you need to specify bucket key in the request.
 
