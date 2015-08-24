@@ -7,26 +7,26 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
-public class MonitorServiceRegistration
+public class MonitorServiceRegistry
 {
-	final static Logger logger = Logger.getLogger(MonitorServiceRegistration.class);	
+	final static Logger logger = Logger.getLogger(MonitorServiceRegistry.class);	
 	private final String URI_FORMAT = "tcp://%s:%d";
 	
-	private static MonitorServiceRegistration session;
+	private static MonitorServiceRegistry session;
 
 	private final Object lock;
 	private Map<String, String> serviceReg;
 
-	public static MonitorServiceRegistration getSession()
+	public static MonitorServiceRegistry getSession()
 	{
 		if(session == null)
 		{
-			session = new MonitorServiceRegistration();
+			session = new MonitorServiceRegistry();
 		}
 		return session;
 	}
 	
-	public MonitorServiceRegistration()
+	public MonitorServiceRegistry()
 	{
 		lock = new Object();
 		serviceReg = new HashMap<String, String>();

@@ -1,7 +1,10 @@
-package nx.service.wrapper;
+package nx.service.config;
 
 import java.io.File;
 import java.util.List;
+
+import nx.service.exception.ServiceException;
+import nx.service.exception.ServiceStartUpException;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigException;

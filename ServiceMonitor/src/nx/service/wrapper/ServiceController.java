@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import nx.service.config.ServiceConfig;
+import nx.service.exception.ServiceException;
+import nx.service.thread.ServiceManager;
+
 import org.apache.log4j.Logger;
 
 import com.google.common.base.Joiner;

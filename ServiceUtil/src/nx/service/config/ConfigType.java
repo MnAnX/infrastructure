@@ -1,4 +1,4 @@
-package nx.service.wrapper;
+package nx.service.config;
 
 public enum ConfigType
 {

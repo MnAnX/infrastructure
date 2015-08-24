@@ -38,7 +38,7 @@ public class MonitorControlHandler implements IHandler
 			if ("help".equals(req.getCmd()) || "allServices".equals(req.getCmd()) || "all".equals(req.getCmd()))
 			{
 				// list all registered services
-				Set<String> serviceList = MonitorServiceRegistration.getSession().getAllRegisteredServices();
+				Set<String> serviceList = MonitorServiceRegistry.getSession().getAllRegisteredServices();
 				response.setResponse("All the registered services: \n - "
 						+ Joiner.on("\n - ").join(serviceList));
 				return gson.toJson(response);
@@ -76,7 +76,7 @@ public class MonitorControlHandler implements IHandler
 
 	private ServiceControlResponse sendControlToService(String serviceName, String cmd) throws Exception
 	{
-		String uri = MonitorServiceRegistration.getSession().getServiceUri(serviceName);
+		String uri = MonitorServiceRegistry.getSession().getServiceUri(serviceName);
 		if (uri == null)
 		{
 			throw new Exception("Requested service [" + serviceName + "] is not registered with Monitor.");

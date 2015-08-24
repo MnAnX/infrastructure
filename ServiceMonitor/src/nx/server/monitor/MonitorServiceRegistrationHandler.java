@@ -38,11 +38,11 @@ public class MonitorServiceRegistrationHandler implements IHandler
 			{
 				throw new Exception("Both IP Address and Control Port are required for registration.");
 			}
-			MonitorServiceRegistration.getSession().registerService(serviceName, req.getIpAddr(), req.getControlPort());
+			MonitorServiceRegistry.getSession().registerService(serviceName, req.getIpAddr(), req.getControlPort());
 		}
 		else if ("remove".equals(req.getCmd()))
 		{
-			MonitorServiceRegistration.getSession().deregisterService(serviceName);
+			MonitorServiceRegistry.getSession().deregisterService(serviceName);
 		}
 		else
 		{

@@ -1,8 +1,8 @@
 package nx.server.monitor;
 
 import nx.server.zmq.ZmqServer;
-import nx.service.wrapper.ConfigType;
-import nx.service.wrapper.ServiceConfig;
+import nx.service.config.ConfigType;
+import nx.service.config.ServiceConfig;
 import nx.service.wrapper.ServiceControlRequest;
 
 import com.google.gson.Gson;

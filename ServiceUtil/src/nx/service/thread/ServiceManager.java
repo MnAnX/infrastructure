@@ -1,9 +1,12 @@
-package nx.service.wrapper;
+package nx.service.thread;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import nx.service.exception.ServiceException;
+import nx.service.exception.ServiceStartUpException;
 
 public class ServiceManager
 {
@@ -18,12 +21,12 @@ public class ServiceManager
 		return session;
 	}
 
-	private ExecutorService threadManager;
+	private ExecutorService threadPool;
 	private List<IProcess> runningProcesses;
 
 	public ServiceManager() throws ServiceStartUpException
 	{
-		threadManager = Executors.newCachedThreadPool();
+		threadPool = Executors.newCachedThreadPool();
 		runningProcesses = new ArrayList<IProcess>();
 	}
 
@@ -31,11 +34,16 @@ public class ServiceManager
 	{
 		Thread thread = new Thread(runnable);
 		thread.setName(threadName);
-		threadManager.execute(thread);
+		threadPool.execute(thread);
 		if(runnable instanceof IProcess)
 		{
 			runningProcesses.add((IProcess) runnable);
 		}
+	}
+
+	public void regRunningProcess(IProcess process)
+	{
+		runningProcesses.add(process);
 	}
 
 	public void stopService()
@@ -48,7 +56,7 @@ public class ServiceManager
 
 	public void forceShutdown()
 	{
-		threadManager.shutdownNow();
+		threadPool.shutdownNow();
 		System.exit(0);
 	}
 }

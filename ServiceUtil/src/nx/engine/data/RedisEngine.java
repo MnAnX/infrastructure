@@ -29,11 +29,19 @@ public class RedisEngine implements IDataEngine
 		return new RedisEngine(this.host, this.port, this.maxConn);
 	}
 
-	public void close() throws Exception
+	public void close()
 	{
 		if (pool != null)
 		{
 			pool.destroy();
+		}
+	}
+
+	public boolean isKeyExist(String key)
+	{
+		try (Jedis jedis = pool.getResource())
+		{
+			return jedis.exists(key);
 		}
 	}
 
@@ -42,14 +50,6 @@ public class RedisEngine implements IDataEngine
 		try (Jedis jedis = pool.getResource())
 		{
 			jedis.set(key, data);
-		}
-	}
-
-	public void setHSetData(String key, String field, String data)
-	{
-		try(Jedis jedis = pool.getResource())
-		{
-			jedis.hset(key, field, data);
 		}
 	}
 
@@ -77,7 +77,23 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
-	public Map<String, String> getHSetData(String key)
+	public void setHSetData(String key, String field, String data)
+	{
+		try(Jedis jedis = pool.getResource())
+		{
+			jedis.hset(key, field, data);
+		}
+	}
+
+	public String getHSetDataByField(String key, String field)
+	{
+		try(Jedis jedis = pool.getResource())
+		{
+			return jedis.hget(key, field);
+		}
+	}
+
+	public Map<String, String> getHSetDataAll(String key)
 	{
 		try(Jedis jedis = pool.getResource())
 		{

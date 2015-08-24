@@ -1,5 +1,10 @@
 package nx.service.wrapper;
 
+import nx.service.config.ConfigType;
+import nx.service.config.ServiceConfig;
+import nx.service.exception.ServiceException;
+import nx.service.thread.IProcess;
+
 import org.apache.log4j.Logger;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Poller;
@@ -31,7 +36,7 @@ public class ServiceControlListener implements Runnable, IProcess
 
 	public ZMQ.Socket initRouter() throws ServiceException
 	{
-		Integer serviceControlPort = ServiceConfig.session().getInt(ConfigType.SERVICE, "service.control_port");
+		Integer serviceControlPort = ServiceConfig.session().getInt(ConfigType.SERVICE, "port.control");
 		String uri = String.format("tcp://*:%d", serviceControlPort);
 		ZMQ.Socket router = zmqContext.socket(ZMQ.ROUTER);
 		router.setLinger(0);
