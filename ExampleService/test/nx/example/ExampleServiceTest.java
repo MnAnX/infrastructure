@@ -97,8 +97,9 @@ public class ExampleServiceTest extends TestCase
 
 		ClientRequest req = new ClientRequest();
 		req.setService("control");
-		// As we added a counter in the handler to record number of requests
-		// received, it could be queried through monitor
+		// As a counter is added in the handler to record number of requests
+		// received, it could be queried through monitor. getAllCounters is a
+		// method in ServiceControlHandler.
 		req.setRequest(new ServiceControlRequest().setService("example-service-1").setCmd("getAllCounters").toJson());
 
 		client.send(req.toJson());
@@ -121,8 +122,8 @@ public class ExampleServiceTest extends TestCase
 
 		ClientRequest req = new ClientRequest();
 		req.setService("control");
-		// This is the control method we added in ExampleServiceControlHandler.
-		// This finds data in cache by time.
+		// lookupDataFromCache is in ExampleServiceControlHandler. It finds data
+		// in cache by time.
 		req.setRequest(new ServiceControlRequest().setService("example-service-1").setCmd("lookupDataFromCache")
 				.setKey(String.valueOf(System.currentTimeMillis() / 1000 - 1)).toJson());
 
