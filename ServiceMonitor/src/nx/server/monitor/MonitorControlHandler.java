@@ -39,7 +39,7 @@ public class MonitorControlHandler implements IHandler
 			{
 				// list all registered services
 				Set<String> serviceList = MonitorServiceRegistry.getSession().getAllRegisteredServices();
-				response.setResponse("All the registered services: \n - "
+				response.setResponse("Registered services: \n - "
 						+ Joiner.on("\n - ").join(serviceList));
 				return gson.toJson(response);
 			}

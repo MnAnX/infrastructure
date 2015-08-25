@@ -14,9 +14,10 @@ public class ServiceControlRequest
 		return service;
 	}
 
-	public void setService(String service)
+	public ServiceControlRequest setService(String service)
 	{
 		this.service = service;
+		return this;
 	}
 
 	public String getCmd()
@@ -24,9 +25,10 @@ public class ServiceControlRequest
 		return cmd;
 	}
 
-	public void setCmd(String cmd)
+	public ServiceControlRequest setCmd(String cmd)
 	{
 		this.cmd = cmd;
+		return this;
 	}
 
 	public String getKey()
@@ -34,9 +36,10 @@ public class ServiceControlRequest
 		return key;
 	}
 
-	public void setKey(String key)
+	public ServiceControlRequest setKey(String key)
 	{
 		this.key = key;
+		return this;
 	}
 
 	public String getValue()
@@ -44,9 +47,10 @@ public class ServiceControlRequest
 		return value;
 	}
 
-	public void setValue(String value)
+	public ServiceControlRequest setValue(String value)
 	{
 		this.value = value;
+		return this;
 	}
 
 	public String toJson()

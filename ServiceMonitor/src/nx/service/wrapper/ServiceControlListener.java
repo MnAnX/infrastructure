@@ -41,7 +41,7 @@ public class ServiceControlListener implements Runnable
 		router.setLinger(0);
 		router.setReceiveTimeOut(100);
 		router.bind(uri);
-		logger.info("Service control router starts on port [" + serviceControlPort + "]");
+		logger.info("Service control router binds to port [" + serviceControlPort + "]");
 		return router;
 	}
 
@@ -55,7 +55,7 @@ public class ServiceControlListener implements Runnable
 		subscriber.setLinger(0);
 		subscriber.setReceiveTimeOut(100);
 		subscriber.connect(uri);
-		logger.info("Service control subscriber starts on uri [" + uri + "]");
+		logger.info("Service control subscriber listens to [" + uri + "]");
 		return subscriber;
 	}
 

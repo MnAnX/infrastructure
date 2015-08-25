@@ -6,8 +6,11 @@ import nx.server.zmq.ZmqServer;
 import nx.service.ConfigType;
 import nx.service.ServiceConfig;
 import nx.service.ServiceManager;
+import nx.service.exception.ServiceException;
 import nx.service.exception.ServiceProcessException;
 import nx.service.exception.ServiceStartUpException;
+import nx.service.wrapper.ServiceControlHandler;
+import nx.service.wrapper.ServiceControlRequest;
 import nx.service.wrapper.ServiceController;
 import nx.service.wrapper.ServiceCounterStatus;
 import nx.service.wrapper.ServiceStatus;
@@ -21,16 +24,17 @@ public class ExampleService
 	private String serviceName;
 	private ZmqServer zmqServer;
 	private DataGenerator dataGen;
+	private RedisEngine redisEngine;
 
 	public ExampleService(String serviceName, String configFile) throws Exception
 	{
 		/*
 		 * Your given service name must be defined in the given config file. The
 		 * config file needs to have a format as:
-		 * 
+		 *
 		 * common = { // common parts across all nodes } cluster = [ { name =
 		 * <service_name> // other configs } // more nodes if necessary ]
-		 * 
+		 *
 		 * ServiceConfig will find matching service name in the defined cluster.
 		 */
 
@@ -62,7 +66,7 @@ public class ExampleService
 
 		// Init
 		zmqServer = new ZmqServer(clientPort, workerPort);
-		RedisEngine redisEngine = new RedisEngine(redisHost, redisPort, redisScale);
+		redisEngine = new RedisEngine(redisHost, redisPort, redisScale);
 		dataGen = new DataGenerator(redisEngine);
 		IHandler handler = new ExampleHandler(redisEngine);
 		zmqServer.addHandler(handler, handlerScale);
@@ -101,6 +105,11 @@ public class ExampleService
 		dataGen.stop();
 	}
 
+	public RedisEngine getDataSource()
+	{
+		return redisEngine;
+	}
+
 	private boolean isServiceActive() throws Exception
 	{
 		return ServiceConfig.session().getBoolean(ConfigType.SERVICE, "active");
@@ -127,9 +136,14 @@ public class ExampleService
 
 		/*
 		 * Start the controller. This allows Monitor to control the service
-		 * remotely.
+		 * remotely. If you use the default ServiceController, you'll have all
+		 * the methods of ServiceControlHandler. Or you can start controller
+		 * with your own handler.
 		 */
-		ServiceController controller = new ServiceController();
+		// Default Controller using ServiceControlHandler
+		// ServiceController controller = new ServiceController();
+		// Controller with user defined handler
+		ServiceController controller = new ServiceController(new ExampleServiceControlHandler(service.getDataSource()));
 		controller.start();
 	}
 }
@@ -185,14 +199,14 @@ class DataGenerator implements Runnable
 	@Override
 	public void run()
 	{
-		/* Generate random data and put it in cache every 10 seconds. */
+		/* Generate random data and put it in cache every second. */
 		logger.info("Data Generator start running.");
 		while (!isStop && !Thread.currentThread().isInterrupted())
 		{
 			try
 			{
-				redis.setData(String.valueOf(System.currentTimeMillis()), String.valueOf(Math.random()));
-				Thread.sleep(10000);
+				redis.setData(String.valueOf(System.currentTimeMillis() / 1000), String.valueOf(Math.random()));
+				Thread.sleep(1000);
 			}
 			catch (Exception e)
 			{
@@ -205,5 +219,26 @@ class DataGenerator implements Runnable
 	public void stop()
 	{
 		isStop = true;
+	}
+}
+
+class ExampleServiceControlHandler extends ServiceControlHandler
+{
+	private RedisEngine redis;
+
+	public ExampleServiceControlHandler(RedisEngine redis) throws ServiceException
+	{
+		super();
+		this.redis = redis;
+	}
+
+	public String lookupDataFromCache(ServiceControlRequest req) throws ServiceException
+	{
+		String key = req.getKey();
+		if (key == null || key.isEmpty())
+		{
+			return "Field 'key' cannot be empty in the request.";
+		}
+		return redis.getStringData(key);
 	}
 }

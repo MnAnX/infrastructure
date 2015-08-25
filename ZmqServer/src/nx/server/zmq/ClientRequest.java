@@ -1,5 +1,7 @@
 package nx.server.zmq;
 
+import com.google.gson.GsonBuilder;
+
 public class ClientRequest
 {
 	private String service;
@@ -10,9 +12,10 @@ public class ClientRequest
 		return service;
 	}
 
-	public void setService(String service)
+	public ClientRequest setService(String service)
 	{
 		this.service = service;
+		return this;
 	}
 
 	public String getRequest()
@@ -20,9 +23,14 @@ public class ClientRequest
 		return request;
 	}
 
-	public void setRequest(String request)
+	public ClientRequest setRequest(String request)
 	{
 		this.request = request;
+		return this;
 	}
 
+	public String toJson()
+	{
+		return new GsonBuilder().create().toJson(this);
+	}
 }

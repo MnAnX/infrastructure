@@ -103,7 +103,7 @@ public class ServiceControlHandler implements IControlHandler
 		ZmqClient client = new ZmqClient(serviceName, monitorHost, monitorPort, 1000);
 		ServiceControlRegistrationRequest regReq = new ServiceControlRegistrationRequest();
 		regReq.setService(serviceName);
-		regReq.setIpAddr(InetAddress.getLocalHost().getHostAddress());
+		regReq.setIpAddr(InetAddress.getLocalHost().getHostName());
 		regReq.setControlPort(ServiceConfig.session().getInt(ConfigType.SERVICE, "port.control"));
 		regReq.setCmd(cmd);
 
