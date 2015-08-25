@@ -26,11 +26,19 @@ public class ServiceControlHandler implements IControlHandler
 
 	private Gson gson;
 
+	/**
+	 * @throws ServiceException
+	 */
 	public ServiceControlHandler() throws ServiceException
 	{
 		gson = new GsonBuilder().create();
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String registerService(ServiceControlRequest req) throws ServiceException
 	{
 		try
@@ -64,6 +72,11 @@ public class ServiceControlHandler implements IControlHandler
 		}
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String deregisterService(ServiceControlRequest req) throws ServiceException
 	{
 		try
@@ -118,6 +131,11 @@ public class ServiceControlHandler implements IControlHandler
 		return resp;
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String getSwitchByKey(ServiceControlRequest req) throws ServiceException
 	{
 		String statusKey = req.getKey();
@@ -135,6 +153,11 @@ public class ServiceControlHandler implements IControlHandler
 		}
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String setSwitchByKeyAndValue(ServiceControlRequest req) throws ServiceException
 	{
 		String statusKey = req.getKey();
@@ -153,16 +176,31 @@ public class ServiceControlHandler implements IControlHandler
 		return "Set status [" + statusKey + "] to value [" + toValue + "]";
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String getAllSwitch(ServiceControlRequest req) throws ServiceException
 	{
 		return ServiceStatus.session().getAllSwitchesInString();
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String getAllCounters(ServiceControlRequest req) throws ServiceException
 	{
 		return ServiceStatus.session().getAllCountersInString();
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String getConfigByKey(ServiceControlRequest req) throws ServiceException
 	{
 		String configKey = req.getKey();
@@ -182,6 +220,11 @@ public class ServiceControlHandler implements IControlHandler
 		return resp;
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String getAllConfig(ServiceControlRequest req) throws ServiceException
 	{
 
@@ -190,6 +233,11 @@ public class ServiceControlHandler implements IControlHandler
 		return resp;
 	}
 
+	/**
+	 * @param request
+	 * @return response
+	 * @throws ServiceException
+	 */
 	public String stopService(ServiceControlRequest req) throws ServiceException
 	{
 		ServiceManager.session().stopService();

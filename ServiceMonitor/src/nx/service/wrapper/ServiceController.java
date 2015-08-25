@@ -33,6 +33,10 @@ public class ServiceController
 		this(new ServiceControlHandler()); // basic control handler
 	}
 
+	/**
+	 * @param handler
+	 * @throws ServiceException
+	 */
 	public ServiceController(IControlHandler handler) throws ServiceException
 	{
 		this.handler = handler;
@@ -62,6 +66,10 @@ public class ServiceController
 		handler.registerService(null);
 	}
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	public synchronized String process(String request)
 	{
 		ServiceControlResponse response = new ServiceControlResponse();
