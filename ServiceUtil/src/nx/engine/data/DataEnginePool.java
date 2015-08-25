@@ -5,6 +5,11 @@ public class DataEnginePool {
 	int poolSize;
 	int currentDataEngineIndex = 0;
 
+	/**
+	 * @param poolSize
+	 * @param dataEngine
+	 * @throws Exception
+	 */
 	public DataEnginePool(int poolSize, IDataEngine dataEngine)
 			throws Exception {
 		this.poolSize = poolSize;

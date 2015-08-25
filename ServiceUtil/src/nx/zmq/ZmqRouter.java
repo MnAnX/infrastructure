@@ -11,6 +11,10 @@ public class ZmqRouter
 	private Integer timeout;
 	byte[] callbackId = null;
 
+	/**
+	 * @param port
+	 * @param timeout
+	 */
 	public ZmqRouter(int port, Integer timeout)
 	{
 		this.timeout = timeout == null ? -1 : timeout;
@@ -23,6 +27,10 @@ public class ZmqRouter
 		poller.register(router, Poller.POLLIN);
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public synchronized byte[] receive() throws Exception
 	{
 		if (poller.poll(timeout) == -1)
@@ -38,6 +46,10 @@ public class ZmqRouter
 		return null;
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public synchronized String receiveStr() throws Exception
 	{
 		if (poller.poll(timeout) == -1)
@@ -53,6 +65,9 @@ public class ZmqRouter
 		return null;
 	}
 
+	/**
+	 * @param msg
+	 */
 	public synchronized void send(byte[] msg)
 	{
 		router.sendMore(callbackId);
@@ -60,6 +75,9 @@ public class ZmqRouter
 		router.send(msg, 0);
 	}
 
+	/**
+	 * @param msg
+	 */
 	public synchronized void sendMore(byte[] msg)
 	{
 		router.send(msg, 1);
@@ -72,11 +90,14 @@ public class ZmqRouter
 		router.send(msg);
 	}
 
+	/**
+	 * @param msg
+	 */
 	public synchronized void sendMore(String msg)
 	{
 		router.sendMore(msg);
 	}
-	
+
 	public synchronized byte[] getCallbackId()
 	{
 		return callbackId;

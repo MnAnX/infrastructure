@@ -11,6 +11,10 @@ public class ZmqResponder
 	private Poller poller;
 	private Integer timeout;
 
+	/**
+	 * @param port
+	 * @param timeout
+	 */
 	public ZmqResponder(int port, Integer timeout)
 	{
 		this.timeout = timeout == null ? -1 : timeout;
@@ -29,6 +33,9 @@ public class ZmqResponder
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public synchronized String receiveRequest()
 	{
 		if (poller.poll(timeout) == -1)
@@ -42,6 +49,9 @@ public class ZmqResponder
 		return null;
 	}
 
+	/**
+	 * @param response
+	 */
 	public synchronized void sendResponse(String response)
 	{
 		// send request

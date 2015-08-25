@@ -11,6 +11,14 @@ public class JdbcEngine implements IDataEngine
 	protected DriverManagerDataSource dataSource;
 	protected Connection conn;
 
+	/**
+	 * @param host
+	 * @param port
+	 * @param service
+	 * @param user
+	 * @param pw
+	 * @throws Exception
+	 */
 	public JdbcEngine(String host, String port, String service, String user, String pw) throws Exception
 	{
 		this.dataSource = getDataSource(host, port, service, user, pw);
@@ -24,6 +32,10 @@ public class JdbcEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param dataSource
+	 * @throws Exception
+	 */
 	public JdbcEngine(DriverManagerDataSource dataSource) throws Exception
 	{
 		try
@@ -42,6 +54,15 @@ public class JdbcEngine implements IDataEngine
 		return new JdbcEngine(this.dataSource);
 	}
 
+	/**
+	 * @param host
+	 * @param port
+	 * @param service
+	 * @param user
+	 * @param pw
+	 * @return
+	 * @throws Exception
+	 */
 	public DriverManagerDataSource getDataSource(String host, String port, String service, String user, String pw) throws Exception
 	{
 		// Override this method if your datasource is different
@@ -71,6 +92,9 @@ public class JdbcEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @return jdbc connection
+	 */
 	public Connection getConnection()
 	{
 		return conn;

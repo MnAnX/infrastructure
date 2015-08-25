@@ -17,6 +17,10 @@ public class ServiceManager
 
 	private static ServiceManager session;
 
+	/**
+	 * @return service manager session
+	 * @throws ServiceException
+	 */
 	public static ServiceManager session() throws ServiceException
 	{
 		if (session == null)
@@ -29,12 +33,19 @@ public class ServiceManager
 	private ExecutorService threadPool;
 	private List<Object> runningProcesses;
 
+	/**
+	 * @throws ServiceStartUpException
+	 */
 	public ServiceManager() throws ServiceStartUpException
 	{
 		threadPool = Executors.newCachedThreadPool();
 		runningProcesses = new ArrayList<Object>();
 	}
 
+	/**
+	 * @param runnable
+	 * @param threadName
+	 */
 	public void startThread(Runnable runnable, String threadName)
 	{
 		Thread thread = new Thread(runnable);
@@ -43,6 +54,9 @@ public class ServiceManager
 		runningProcesses.add(runnable);
 	}
 
+	/**
+	 * @param process
+	 */
 	public void regRunningProcess(Object process)
 	{
 		runningProcesses.add(process);

@@ -10,6 +10,12 @@ public class ZmqSubscriber
 	private Poller poller;
 	private Integer timeout;
 
+	/**
+	 * @param host
+	 * @param port
+	 * @param topic
+	 * @param timeout
+	 */
 	public ZmqSubscriber(String host, int port, String topic, Integer timeout)
 	{
 		this.timeout = timeout == null ? -1 : timeout;
@@ -23,6 +29,10 @@ public class ZmqSubscriber
 
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public synchronized byte[] receive() throws Exception
 	{
 		if (poller.poll(timeout) == -1)
@@ -36,6 +46,10 @@ public class ZmqSubscriber
 		return null;
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	public synchronized String receiveStr() throws Exception
 	{
 		if (poller.poll(timeout) == -1)

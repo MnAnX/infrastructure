@@ -23,12 +23,21 @@ public class ZmqServer
 
 	private ExecutorService executor;
 
+	/**
+	 * @param clientRequestPort
+	 * @param workerResponsePort
+	 */
 	public ZmqServer(int clientRequestPort, int workerResponsePort)
 	{
 		this(clientRequestPort, workerResponsePort,
 				new ZmqProxy(clientRequestPort, workerResponsePort, new ZmqServiceRegistration()));
 	}
 
+	/**
+	 * @param clientRequestPort
+	 * @param workerResponsePort
+	 * @param proxy
+	 */
 	public ZmqServer(int clientRequestPort, int workerResponsePort, IProxy proxy)
 	{
 		this.proxy = proxy;
@@ -37,6 +46,11 @@ public class ZmqServer
 		executor = Executors.newCachedThreadPool();
 	}
 
+	/**
+	 * @param handler
+	 * @param scale
+	 * @throws Exception
+	 */
 	public void addHandler(IHandler handler, int scale) throws Exception
 	{
 		if (scale < 1)
@@ -50,6 +64,9 @@ public class ZmqServer
 		}
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public void start() throws Exception
 	{
 		// run the proxy

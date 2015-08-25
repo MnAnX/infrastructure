@@ -8,6 +8,12 @@ public class ZmqRequester
 	private ZMQ.Context context;
 	private Socket requester;
 
+	/**
+	 * @param targetAddress
+	 * @param targetPort
+	 * @param clientId
+	 * @param timeout
+	 */
 	public ZmqRequester(String targetAddress, int targetPort, String clientId, Integer timeout)
 	{
 		context = ZMQ.context(1);
@@ -23,6 +29,11 @@ public class ZmqRequester
 		}
 	}
 
+	/**
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	public synchronized String sendRequest(String request) throws Exception
 	{
 		// send request

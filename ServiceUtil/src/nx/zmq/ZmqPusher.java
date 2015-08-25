@@ -7,6 +7,9 @@ public class ZmqPusher
 	private ZMQ.Context context;
 	private ZMQ.Socket sender;
 
+	/**
+	 * @param port
+	 */
 	public ZmqPusher(int port)
 	{
 		String connect_str = String.format("tcp://*:%d", port);
@@ -17,11 +20,19 @@ public class ZmqPusher
 		sender.bind(connect_str);
 	}
 
+	/**
+	 * @param msg
+	 * @throws Exception
+	 */
 	public synchronized void send(String msg) throws Exception
 	{
 		sender.send(msg);
 	}
 
+	/**
+	 * @param msgs
+	 * @throws Exception
+	 */
 	public synchronized void send(String... msgs) throws Exception
 	{
 		if (msgs == null || msgs.length == 0)

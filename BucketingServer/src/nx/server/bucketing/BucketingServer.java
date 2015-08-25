@@ -10,12 +10,16 @@ public class BucketingServer extends ZmqServer
 {
 	private final static Logger logger = Logger.getLogger(BucketingServer.class);
 
+	/**
+	 * @param clientRequestPort
+	 * @param workerResponsePort
+	 */
 	public BucketingServer(int clientRequestPort, int workerResponsePort)
 	{
 		super(clientRequestPort, workerResponsePort,
 				new BucketingProxy(clientRequestPort, workerResponsePort, new BucketingServiceRegistration()));
 	}
-	
+
 	@Override
 	public void addHandler(IHandler handler, int scale) throws Exception
 	{

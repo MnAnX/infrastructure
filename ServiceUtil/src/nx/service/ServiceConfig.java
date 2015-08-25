@@ -18,11 +18,20 @@ public class ServiceConfig
 	private Config allConfig;
 	private Config serviceConfig;
 
+	/**
+	 * @param serviceName
+	 * @param configFile
+	 * @throws ServiceStartUpException
+	 */
 	public static void initialize(String serviceName, String configFile) throws ServiceStartUpException
 	{
 		session = new ServiceConfig(serviceName, configFile);
 	}
 
+	/**
+	 * @return service config session
+	 * @throws ServiceStartUpException
+	 */
 	public static ServiceConfig session() throws ServiceStartUpException
 	{
 		if(session == null)
@@ -32,6 +41,11 @@ public class ServiceConfig
 		return session;
 	}
 
+	/**
+	 * @param serviceName
+	 * @param configFilePath
+	 * @throws ServiceStartUpException
+	 */
 	public ServiceConfig(String serviceName, String configFilePath) throws ServiceStartUpException
 	{
 		if (serviceName == null || serviceName.isEmpty())
@@ -59,6 +73,11 @@ public class ServiceConfig
 		serviceConfig = findServiceConfig(serviceName);
 	}
 
+	/**
+	 * @param serviceName
+	 * @return config of the specified service
+	 * @throws ServiceStartUpException
+	 */
 	public Config findServiceConfig(String serviceName) throws ServiceStartUpException
 	{
 		List<? extends Config> cluster = allConfig.getConfigList("cluster");
@@ -73,16 +92,26 @@ public class ServiceConfig
 				+ "]. Please make sure its config exists in the cluster.");
 	}
 
+	/**
+	 * @return list of the configs of services defined in the cluster
+	 */
 	public List<? extends Config> getServiceCluster()
 	{
 		return allConfig.getConfigList("cluster");
 	}
 
+	/**
+	 * @return service name
+	 */
 	public String getServiceName()
 	{
 		return serviceName;
 	}
 
+	/**
+	 * @param type
+	 * @return config by type
+	 */
 	public Config getConfig(ConfigType type)
 	{
 		switch (type)
@@ -98,6 +127,12 @@ public class ServiceConfig
 		}
 	}
 
+	/**
+	 * @param type
+	 * @param key
+	 * @return
+	 * @throws ServiceException
+	 */
 	public String getString(ConfigType type, String key) throws ServiceException
 	{
 		try
@@ -110,6 +145,12 @@ public class ServiceConfig
 		}
 	}
 
+	/**
+	 * @param type
+	 * @param key
+	 * @return
+	 * @throws ServiceException
+	 */
 	public int getInt(ConfigType type, String key) throws ServiceException
 	{
 		try
@@ -122,6 +163,12 @@ public class ServiceConfig
 		}
 	}
 
+	/**
+	 * @param type
+	 * @param key
+	 * @return
+	 * @throws ServiceException
+	 */
 	public long getLong(ConfigType type, String key) throws ServiceException
 	{
 		try
@@ -134,6 +181,12 @@ public class ServiceConfig
 		}
 	}
 
+	/**
+	 * @param type
+	 * @param key
+	 * @return
+	 * @throws ServiceException
+	 */
 	public double getDouble(ConfigType type, String key) throws ServiceException
 	{
 		try
@@ -146,6 +199,12 @@ public class ServiceConfig
 		}
 	}
 
+	/**
+	 * @param type
+	 * @param key
+	 * @return
+	 * @throws ServiceException
+	 */
 	public boolean getBoolean(ConfigType type, String key) throws ServiceException
 	{
 		try

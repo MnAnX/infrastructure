@@ -7,6 +7,9 @@ public class ZmqPublisher
 	private ZMQ.Context context;
 	private ZMQ.Socket pub;
 
+	/**
+	 * @param port
+	 */
 	public ZmqPublisher(int port)
 	{
 		String connect_str = String.format("tcp://*:%d", port);
@@ -16,11 +19,19 @@ public class ZmqPublisher
 		pub.bind(connect_str);
 	}
 
+	/**
+	 * @param message
+	 * @throws Exception
+	 */
 	public synchronized void publish(byte[] message) throws Exception
 	{
 		pub.send(message, 0);
 	}
 
+	/**
+	 * @param message
+	 * @throws Exception
+	 */
 	public synchronized void publish(String message) throws Exception
 	{
 		pub.send(message, 0);

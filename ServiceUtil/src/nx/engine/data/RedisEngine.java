@@ -13,6 +13,11 @@ public class RedisEngine implements IDataEngine
 	protected JedisPool pool;
 	protected int maxConn;
 
+	/**
+	 * @param host
+	 * @param port
+	 * @param maxConn
+	 */
 	public RedisEngine(String host, int port, int maxConn)
 	{
 		this.host = host;
@@ -37,6 +42,10 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @return
+	 */
 	public boolean isKeyExist(String key)
 	{
 		try (Jedis jedis = pool.getResource())
@@ -45,6 +54,10 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @param data
+	 */
 	public void setData(String key, String data)
 	{
 		try (Jedis jedis = pool.getResource())
@@ -53,6 +66,10 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @param data
+	 */
 	public void setData(byte[] key, byte[] data)
 	{
 		try (Jedis jedis = pool.getResource())
@@ -61,6 +78,10 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @return
+	 */
 	public String getStringData(String key)
 	{
 		try (Jedis jedis = pool.getResource())
@@ -69,6 +90,10 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @return
+	 */
 	public byte[] getByteData(byte[] key)
 	{
 		try (Jedis jedis = pool.getResource())
@@ -77,6 +102,11 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @param field
+	 * @param data
+	 */
 	public void setHSetData(String key, String field, String data)
 	{
 		try(Jedis jedis = pool.getResource())
@@ -85,6 +115,11 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @param field
+	 * @return
+	 */
 	public String getHSetDataByField(String key, String field)
 	{
 		try(Jedis jedis = pool.getResource())
@@ -93,6 +128,10 @@ public class RedisEngine implements IDataEngine
 		}
 	}
 
+	/**
+	 * @param key
+	 * @return
+	 */
 	public Map<String, String> getHSetDataAll(String key)
 	{
 		try(Jedis jedis = pool.getResource())
