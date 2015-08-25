@@ -1,7 +1,7 @@
 package nx.server.monitor;
 
-import nx.service.config.ConfigType;
-import nx.service.config.ServiceConfig;
+import nx.service.ConfigType;
+import nx.service.ServiceConfig;
 import nx.zmq.ZmqPublisher;
 
 public class MonitorControlBroadcaster

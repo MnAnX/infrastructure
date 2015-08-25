@@ -1,8 +1,9 @@
 package nx.server.monitor;
 
 import nx.server.zmq.ZmqServer;
-import nx.service.config.ConfigType;
-import nx.service.config.ServiceConfig;
+import nx.service.ConfigType;
+import nx.service.ServiceConfig;
+import nx.service.exception.ServiceStartUpException;
 import nx.service.wrapper.ServiceControlRequest;
 
 import com.google.gson.Gson;
@@ -13,11 +14,11 @@ public class MonitorServer
 	private ZmqServer requestHandlingServer;
 	private Gson gson;
 
-	public MonitorServer() throws Exception
+	public MonitorServer(String configFile) throws Exception
 	{
 		gson = new GsonBuilder().create();
 
-		ServiceConfig.initialize("monitor", "monitor.conf");
+		ServiceConfig.initialize("monitor", configFile);
 		int clientPort = ServiceConfig.session().getInt(ConfigType.SERVICE, "port.request");
 		int workerPort = ServiceConfig.session().getInt(ConfigType.SERVICE, "port.worker");
 		requestHandlingServer = new ZmqServer(clientPort, workerPort);
@@ -49,7 +50,18 @@ public class MonitorServer
 
 	public static void main(String[] args) throws Exception
 	{
-		MonitorServer server = new MonitorServer();
+		if (args == null || args.length != 1)
+		{
+			throw new ServiceStartUpException(
+					"Parameters is required: 1) config file");
+		}
+		/*
+		 * An example config file is at conf/monitor.conf. You can modify ports
+		 * to fit your needs.
+		 */
+		String configFile = args[0];
+
+		MonitorServer server = new MonitorServer(configFile);
 		server.start();
 	}
 }

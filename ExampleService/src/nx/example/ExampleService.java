@@ -3,12 +3,11 @@ package nx.example;
 import nx.engine.data.RedisEngine;
 import nx.server.zmq.IHandler;
 import nx.server.zmq.ZmqServer;
-import nx.service.config.ConfigType;
-import nx.service.config.ServiceConfig;
+import nx.service.ConfigType;
+import nx.service.ServiceConfig;
+import nx.service.ServiceManager;
 import nx.service.exception.ServiceProcessException;
 import nx.service.exception.ServiceStartUpException;
-import nx.service.thread.IProcess;
-import nx.service.thread.ServiceManager;
 import nx.service.wrapper.ServiceController;
 import nx.service.wrapper.ServiceCounterStatus;
 import nx.service.wrapper.ServiceStatus;
@@ -28,10 +27,10 @@ public class ExampleService
 		/*
 		 * Your given service name must be defined in the given config file. The
 		 * config file needs to have a format as:
-		 *
+		 * 
 		 * common = { // common parts across all nodes } cluster = [ { name =
 		 * <service_name> // other configs } // more nodes if necessary ]
-		 *
+		 * 
 		 * ServiceConfig will find matching service name in the defined cluster.
 		 */
 
@@ -49,10 +48,10 @@ public class ExampleService
 		logger.info("Initializing [" + serviceName + "]...");
 
 		/*
-		 * When getting configuration, if specify ConfigType to be SERVICE, it will
-		 * look up for configurations matching underlying service name under the
-		 * cluster section. If ConfigType is COMMON, it looks up under common
-		 * section. If ALL, it will look up across the entire config file.
+		 * When getting configuration, if specify ConfigType to be SERVICE, it
+		 * will look up under service name in the cluster section. If ConfigType
+		 * is COMMON, it will look up under common section. If ALL, it will look
+		 * up across the entire config file.
 		 */
 		int clientPort = ServiceConfig.session().getInt(ConfigType.SERVICE, "query.port.client");
 		int workerPort = ServiceConfig.session().getInt(ConfigType.SERVICE, "query.port.worker");
@@ -87,7 +86,12 @@ public class ExampleService
 		 * is stopped remotely by Monitor.
 		 */
 		zmqServer.start();
-		ServiceManager.session().regRunningProcess((IProcess) zmqServer);
+		ServiceManager.session().regRunningProcess(zmqServer);
+
+		/*
+		 * All processes must have a stop() method implemented to allow Service
+		 * Manager to stop it properly.
+		 */
 	}
 
 	public void stop()
@@ -166,7 +170,7 @@ class ExampleHandler implements IHandler
 	}
 }
 
-class DataGenerator implements Runnable, IProcess
+class DataGenerator implements Runnable
 {
 	private final static Logger logger = Logger.getLogger(DataGenerator.class);
 
@@ -181,14 +185,14 @@ class DataGenerator implements Runnable, IProcess
 	@Override
 	public void run()
 	{
-		/* Generate random data and put it in cache every second. */
+		/* Generate random data and put it in cache every 10 seconds. */
 		logger.info("Data Generator start running.");
 		while (!isStop && !Thread.currentThread().isInterrupted())
 		{
 			try
 			{
 				redis.setData(String.valueOf(System.currentTimeMillis()), String.valueOf(Math.random()));
-				Thread.sleep(1000);
+				Thread.sleep(10000);
 			}
 			catch (Exception e)
 			{
@@ -198,7 +202,6 @@ class DataGenerator implements Runnable, IProcess
 		redis.close();
 	}
 
-	@Override
 	public void stop()
 	{
 		isStop = true;

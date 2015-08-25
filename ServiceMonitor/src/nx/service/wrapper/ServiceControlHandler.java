@@ -6,12 +6,12 @@ import java.net.UnknownHostException;
 import nx.server.zmq.ClientRequest;
 import nx.server.zmq.ClientResponse;
 import nx.server.zmq.ZmqClient;
-import nx.service.config.ConfigType;
-import nx.service.config.ServiceConfig;
+import nx.service.ConfigType;
+import nx.service.ServiceConfig;
+import nx.service.ServiceManager;
 import nx.service.exception.ServiceException;
 import nx.service.exception.ServiceProcessException;
 import nx.service.exception.ServiceStartUpException;
-import nx.service.thread.ServiceManager;
 
 import org.apache.log4j.Logger;
 
@@ -43,7 +43,7 @@ public class ServiceControlHandler implements IControlHandler
 
 			ClientResponse resp = registerWithMonitor(cmd, serviceName, monitorHost, monitorPort);
 
-			if (resp.isSuccessful())
+			if (resp != null && resp.isSuccessful())
 			{
 				String info = "Service is registered with monitor [" + monitorHost + "]";
 				logger.info(info);
@@ -104,7 +104,7 @@ public class ServiceControlHandler implements IControlHandler
 		ServiceControlRegistrationRequest regReq = new ServiceControlRegistrationRequest();
 		regReq.setService(serviceName);
 		regReq.setIpAddr(InetAddress.getLocalHost().getHostAddress());
-		regReq.setControlPort(ServiceConfig.session().getInt(ConfigType.SERVICE, "service.control_port"));
+		regReq.setControlPort(ServiceConfig.session().getInt(ConfigType.SERVICE, "port.control"));
 		regReq.setCmd(cmd);
 
 		ClientRequest registerRequest = new ClientRequest();

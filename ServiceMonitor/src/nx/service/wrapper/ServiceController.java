@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import nx.service.config.ServiceConfig;
+import nx.service.ServiceConfig;
+import nx.service.ServiceManager;
 import nx.service.exception.ServiceException;
-import nx.service.thread.ServiceManager;
 
 import org.apache.log4j.Logger;
 
@@ -56,9 +56,10 @@ public class ServiceController
 		}
 	}
 
-	public void start() throws ServiceException
+	public void start() throws Exception
 	{
 		ServiceManager.session().startThread(listener, "ServiceControlListenerThread");
+		handler.registerService(null);
 	}
 
 	public synchronized String process(String request)

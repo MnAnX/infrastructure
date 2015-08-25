@@ -1,15 +1,14 @@
 package nx.service.wrapper;
 
-import nx.service.config.ConfigType;
-import nx.service.config.ServiceConfig;
+import nx.service.ConfigType;
+import nx.service.ServiceConfig;
 import nx.service.exception.ServiceException;
-import nx.service.thread.IProcess;
 
 import org.apache.log4j.Logger;
 import org.zeromq.ZMQ;
 import org.zeromq.ZMQ.Poller;
 
-public class ServiceControlListener implements Runnable, IProcess
+public class ServiceControlListener implements Runnable
 {
 	private final static Logger logger = Logger.getLogger(ServiceControlListener.class);
 
