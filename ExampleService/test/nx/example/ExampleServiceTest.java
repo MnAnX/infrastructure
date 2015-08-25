@@ -121,8 +121,10 @@ public class ExampleServiceTest extends TestCase
 
 		ClientRequest req = new ClientRequest();
 		req.setService("control");
-		// This is the control method we added in ExampleServiceControlHandler
-		req.setRequest(new ServiceControlRequest().setService("example-service-1").setCmd("lookupDataFromCache").toJson());
+		// This is the control method we added in ExampleServiceControlHandler.
+		// This finds data in cache by time.
+		req.setRequest(new ServiceControlRequest().setService("example-service-1").setCmd("lookupDataFromCache")
+				.setKey(String.valueOf(System.currentTimeMillis() / 1000 - 1)).toJson());
 
 		client.send(req.toJson());
 		String response = client.receiveStr();
