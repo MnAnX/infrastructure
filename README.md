@@ -33,7 +33,7 @@ And to implement a handler, you focus on business logic:
 As you add the handler to the server, it gets wrapped to a proper worker and interacts with the server.
 
 ### Distributed
-You can Also create workers on remote server and distribute the system:
+You can also create workers on remote server and distribute the system:
 
 Firstly start the server (and maybe a couple workers) on one host:
 
