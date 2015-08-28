@@ -1,5 +1,5 @@
 # Infra
-Infrastructure components I use to quickly build up a stable and scalable service.
+Framework I use to quickly build up scalable services. It helps me to be able to write a simple distributed service in 5 mins, so I can focus on business logic.
 
 ## ZMQ Server
 It's a lightweight, easily embedded server that communicates through ZeroMQ. You can add handlers to serve different kinds of requests, and scale them. You can add workers either on the localhost or remote hosts. Server dispatches workload evenly amongst all available workers.
