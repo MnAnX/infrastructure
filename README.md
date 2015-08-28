@@ -1,5 +1,5 @@
 # Infra
-Framework I write to quickly build up scalable services in Lego-style. 
+Framework I wrote to quickly build up scalable services in Lego-style. 
 
 It helps to write a simple distributed service in 5 mins, so you can focus on business logic, or to experiment in different distribution scenarios.
 
@@ -62,6 +62,8 @@ Service monitor remotely monitors and controls services that register with it. I
 You can start the monitor server from MonitorServer. There's a consol client MonitorClient. Any service that wants to interact with monitor needs the nx.service.wrapper package, which is included in Service Monitor.
 
 A service can start a controller if it wants to be monitored. An example of how to use it is in ExampleService.
+
+The usage is similar to Helix. To me it's lighter and more suitable for my small and quick implementations.
 
 ## Example Service
 This is an example of a simple service that generates random data and stores them periodically to Redis. Client can query data by key (timestamp when data was generated). The service register itself to Service Monitor, and could be controled remotely.
