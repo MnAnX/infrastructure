@@ -4,7 +4,7 @@ Framework I use to quickly build up scalable services in Lego-style.
 It helps me to write a simple distributed service in 5 mins, so I can focus on business logic. Or to experiment in different distribution scenarios.
 
 ## ZMQ Server
-It's a lightweight, easily embedded server that communicates through ZeroMQ. You can add handlers to serve different kinds of requests, and scale them. You can add workers either on the localhost or remote hosts. Server dispatches workload evenly amongst all available workers.
+It's a lightweight, easily embedded master-slave server that communicates through ZeroMQ. You can add workers either on the localhost or remote hosts. Server dispatches workload evenly amongst all available workers.
 ### Single server
 An example of how to create a simple server that runs on one host:
 
