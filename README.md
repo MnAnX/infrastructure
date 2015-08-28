@@ -63,7 +63,7 @@ You can start the monitor server from MonitorServer. There's a consol client Mon
 
 A service can start a controller if it wants to be monitored. An example of how to use it is in ExampleService.
 
-The usage is similar to Helix. To me it's lighter and more suitable for my small and quick implementations.
+The concept is similar to Helix. I wrote it for non-enterprise services as it's lighter in weight.
 
 ## Example Service
 This is an example of a simple service that generates random data and stores them periodically to Redis. Client can query data by key (timestamp when data was generated). The service register itself to Service Monitor, and could be controled remotely.
