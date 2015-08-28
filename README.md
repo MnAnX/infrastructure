@@ -57,7 +57,7 @@ Bucketing server could be used to process write/update requests to avoid race co
 The way to create servers and workers is same as the Zmq Server. Only that you need to specify bucket key in the request.
 
 ## Service Monitor
-Service monitor remotely monitors and controls services that register with it. It itself could be remotely controlled by a monitor client, to query on all the registered services, or send control commands to specified services. 
+Service monitor remotely monitors and controls services that register with it. You can build a GUI on top of it. Or you can use the MonitorClient, a console app that connects remotely to service monitor, to query or send control commands to registered services. 
 
 You can start the monitor server from MonitorServer. There's a consol client MonitorClient. Any service that wants to interact with monitor needs the nx.service.wrapper package, which is included in Service Monitor.
 
